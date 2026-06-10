@@ -1,17 +1,41 @@
-const multer = require('multer')
-const path = require('path')
+const multer = require("multer");
+const path = require("path");
 
-// diskStorage: Define os arquivos serão salvos no disco do servidor.
 const storage = multer.diskStorage({
-    // Define onde o arquivo será salvo
     destination: (req, file, cb) => {
-        cb(null, path.resolve('uploads'))
+        cb(null, "uploads/");
     },
-    // Define o nome do arquivo salvo
-    filename: (req, file, cb) => {
-        const uniqueName = Date.now() + '-' + file.originalname
-        cb(null, uniqueName)
-    }
-})
 
-module.exports = multer({storage})
+    filename: (req, file, cb) => {
+        const nomeArquivo =
+        Date.now() +
+        "-" +
+        file.originalname.replace(/\s+/g, "-");
+
+        cb(null, nomeArquivo);
+    }
+    });
+
+    const upload = multer({
+    storage,
+    limits: {
+        fileSize: 10 * 1024 * 1024
+    },
+
+    fileFilter: (req, file, cb) => {
+        const tiposPermitidos = [
+        "image/png",
+        "image/jpeg",
+        "image/jpg",
+        "image/webp"
+        ];
+
+        if (tiposPermitidos.includes(file.mimetype)) {
+        cb(null, true);
+        } else {
+        cb(new Error("Apenas imagens são permitidas"));
+        }
+    }
+});
+
+module.exports = upload;

@@ -1,13 +1,22 @@
 const express = require('express');
 const cors = require('cors');
-const app = express();
-const routes = require('./routes'); 
+const path = require('path');
 
-// Middlewares globais
-app.use(cors()); // Habilita o CORS para permitir requisições do frontend
+const routes = require('./routes');
+
+const app = express();
+
+app.use(cors());
+
 app.use(express.json());
 
-// Registro de todas as rotas da API centralizadas
+app.use(
+    '/uploads',
+    express.static(
+        path.resolve('uploads')
+    )
+);
+
 app.use('/', routes);
 
 module.exports = app;

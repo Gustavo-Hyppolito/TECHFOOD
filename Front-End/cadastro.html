@@ -4,81 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="src/styles/global.css">
-    <link rel="stylesheet" href="src/styles/cadrastro.css">
+    <link rel="stylesheet" href="./src/styles/global.css">
+    <link rel="stylesheet" href="./src/styles/cadastro.css">
 
-    <title>Cadastrar Prato</title>
+    <title>TechFood - Sabor & Saber</title>
 </head>
 <body>
+    <header id="topo-loja">
+        <h1 id="titulo-loja">TechFood - Sabor & Saber</h1>
+        <p id="boas-vindas">Carregando...</p>
 
-<header id="topo-loja">
-    <h1>TechFood - Sabor & Saber</h1>
+        <!-- Mobile - Menu Hamburger -->
+        <input type="checkbox" id="bt-menu">
+        <label for="bt-menu" id="label-menu" aria-label="Abrir menu de navegação">&#9776</label>
 
-    <nav id="menu">
-        <ul>
-            <li><a href="index.html">Cardápio</a></li>
-            <li><a href="pedidos.html">Meus Pedidos</a></li>
-            <li><a href="cadrastros.html">Cadastrar Prato</a></li>
-        </ul>
-    </nav>
-</header>
+        <!-- Menu de Navegação -->
+        <nav id="menu" role="navigation" aria-label="Menu principal">
+            <ul>
+                <li><a href="index.html">Cardápio</a></li>
+                <li><a href="pedido.html" class="ativo">Meus Pedidos</a></li>
+                <li><a href="cadastro.html">Cadastrar Prato</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<main>
+    <main>
+        <section id="secao-cadastro">
+            <h2>Cadastro de Produto:</h2>
+            <form id="formulario-prato" action="produto" method="post" enctype="multipart/form-data">
+                <label for="nome-prato">Nome: </label>
+                <input type="text" id="nome-prato" name="nome-prato">
+                <label for="descricao-prato">Descrição: </label>
+                <input type="text" id="descricao-prato" name="descricao-prato">
+                <label for="preco-prato">R$ </label>
+                <input type="text" id="preco-prato" name="preco-prato">
 
-    <section class="form-container">
+                <label for="imagem">Imagem do prato: </label>
+                <input type="file" id="imagem" name="imagem" accept="image/*">
 
-        <h2>Cadastrar Novo Prato</h2>
+                <button id="btn-criar-produto">Criar Produto</button>
+            </form>
+        </section>
+    </main>
 
-        <form id="form-produto">
-
-            <input
-                type="text"
-                id="nome"
-                placeholder="Nome do prato"
-                required
-            >
-
-            <textarea
-                id="descricao"
-                placeholder="Descrição"
-                required
-            ></textarea>
-
-            <input
-                type="number"
-                id="preco"
-                placeholder="Preço"
-                step="0.01"
-                required
-            >
-
-            <input
-                type="text"
-                id="categoria"
-                placeholder="Categoria"
-                required
-            >
-
-            <input
-                type="text"
-                id="imagem"
-                placeholder="URL da imagem"
-            >
-
-            <button type="submit">
-                Cadastrar Produto
-            </button>
-
-        </form>
-
-        <p id="mensagem"></p>
-
-    </section>
-
-</main>
-
-<script src="src/scripts/api.js"></script>
-<script src="src/scripts/cadrastro.js"></script>
-
+    <footer id="rodape">
+        <div>
+            <p><strong>TechFood 2026</strong></p>
+            <p>Escola SENAI Ítalo Bologna - Itu</p>
+            <p>Av. das Nações, 1500</p>
+        </div>
+        <p id="data-hora-footer"></p>
+    </footer>
 </body>
 </html>

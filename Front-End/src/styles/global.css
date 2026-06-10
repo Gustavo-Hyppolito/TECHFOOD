@@ -1,12 +1,3 @@
-/* ==========================================================
-   GLOBAL.CSS — Estilos compartilhados por todas as páginas.
-   Aula 8: criado junto com o global.js — o que é de todas
-   as páginas não pode viver num arquivo que só carrega em uma.
-
-   Carregado ANTES de qualquer CSS de página em todos os HTMLs.
-   ========================================================== */
-
-/* ── RESET ──────────────────────────────────────────────── */
 * {
   margin: 0;
   padding: 0;
@@ -80,10 +71,6 @@
   opacity: 1;
 }
 
-/* ── Badge contador no link do menu — Aula 8 ────────────────
-   Criado por atualizarContadorPedidos() no main.js
-   quando o primeiro pedido é salvo.
-   ─────────────────────────────────────────────────────────── */
 .badge-menu {
   display: inline-flex;
   align-items: center;
@@ -133,16 +120,7 @@ a.menu-ativo {
   margin-top: 10px;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   MODAIS — padrão compartilhado entre todas as páginas
-   ═══════════════════════════════════════════════════════════ */
 
-/* ── Overlay dos modais ──────────────────────────────────────
-   Cobre toda a tela com fundo escuro semitransparente.
-   display é controlado via JS (style.display = "flex" / "none").
-   Aula 9: usado por #modal-boas-vindas (index.html) e
-           #modal-fechar-conta (pedidos.html).
-   ─────────────────────────────────────────────────────────── */
 #modal-boas-vindas,
 #modal-fechar-conta {
   position: fixed;
@@ -153,10 +131,6 @@ a.menu-ativo {
   justify-content: center;
 }
 
-/* ── Cartão central do modal ─────────────────────────────────
-   Fundo branco, borda arredondada, sombra suave.
-   Centralizado pelo flex do overlay.
-   ─────────────────────────────────────────────────────────── */
 .modal-bv-conteudo {
   background: #fff;
   border-radius: 14px;
@@ -220,10 +194,6 @@ a.menu-ativo {
   background: #d35400;
 }
 
-/* ── Grupo de dois botões (modal de confirmação) ─────────────
-   Quando o modal tem Cancelar + Confirmar lado a lado.
-   Sobrescreve os estilos de botão único acima.
-   ─────────────────────────────────────────────────────────── */
 .modal-btn-grupo {
   display: flex;
   gap: 10px;

@@ -1,43 +1,96 @@
-.form-container {
-    max-width: 600px;
+/* ==========================================================
+   CADASTRO.CSS
+   Página de cadastro de pratos
+   ========================================================== */
+
+#secao-cadastro {
+    max-width: 700px;
     margin: 40px auto;
-    padding: 30px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 0 20px;
 }
 
-.form-container h2 {
+#secao-cadastro h2 {
     text-align: center;
-    margin-bottom: 20px;
-    color: #2c3e50;
+    color: var(--cor-primaria);
+    margin-bottom: 25px;
 }
 
-#form-produto {
+#formulario-prato {
+    background: #fff;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
 }
 
-#form-produto input,
-#form-produto textarea {
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+#formulario-prato label {
+    font-weight: bold;
+    color: var(--cor-primaria);
+    margin-top: 5px;
 }
 
-#form-produto button {
-    background: #e67e22;
-    color: white;
-    border: none;
+#formulario-prato input[type="text"] {
     padding: 12px;
+    border: 2px solid #ddd;
     border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+#formulario-prato input[type="text"]:focus {
+    border-color: var(--cor-destaque);
+}
+
+#formulario-prato input[type="file"] {
+    padding: 10px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    background: #fafafa;
     cursor: pointer;
-    font-weight: bold;
 }
 
-#mensagem {
+#formulario-prato input[type="file"]:hover {
+    border-color: var(--cor-destaque);
+}
+
+#btn-criar-produto {
     margin-top: 15px;
-    text-align: center;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+
+    background: var(--cor-destaque);
+    color: white;
+
+    font-size: 1rem;
     font-weight: bold;
+
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+#btn-criar-produto:hover {
+    background: #d35400;
+}
+
+#btn-criar-produto:active {
+    transform: scale(0.98);
+}
+
+/* ── Responsividade ───────────────────────── */
+
+@media screen and (max-width: 600px) {
+
+    #secao-cadastro {
+        margin: 20px auto;
+    }
+
+    #formulario-prato {
+        padding: 20px;
+    }
+
 }

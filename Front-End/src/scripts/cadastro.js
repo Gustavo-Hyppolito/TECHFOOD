@@ -1,54 +1,47 @@
-document.addEventListener("DOMContentLoaded", () => {
+const formulario = document.getElementById("formulario-prato");
 
-    const form = document.getElementById("form-produto");
-    const mensagem = document.getElementById("mensagem");
+formulario.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-    form.addEventListener("submit", async (event) => {
+    const dados = new FormData(formulario);
 
-        event.preventDefault();
+    try {
+        const resposta = await fetch(
+            "http://localhost:3000/produto",
+            {
+                method: "POST",
+                body: dados
+            }
+        );
 
-        const nome = document.getElementById("nome").value.trim();
-        const descricao = document.getElementById("descricao").value.trim();
-        const preco = Number(document.getElementById("preco").value);
-        const categoria = document.getElementById("categoria").value.trim();
-        const imagem = document.getElementById("imagem").value.trim();
+        const resultado = await resposta.json();
 
-        if (!nome || !descricao || !categoria || preco <= 0) {
-            mensagem.textContent =
-                "Preencha todos os campos corretamente.";
-            return;
-        }
+        console.log(resultado);
 
-        const produto = {
-            nome,
-            descricao,
-            preco,
-            categoria,
-            imagem,
-            disponivel: true
-        };
-
-        try {
-
-            await cadastrarProduto(produto);
-
-            mensagem.textContent =
-                "Produto cadastrado com sucesso!";
-
-            form.reset();
-
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 1500);
-
-        } catch (erro) {
-
-            mensagem.textContent =
-                "Erro ao cadastrar produto.";
-
-            console.error(erro);
-        }
-
-    });
-
+    } catch (erro) {
+        console.error(erro);
+    }
 });
+
+async function carregarCardapio() {
+    const resposta = await fetch(
+        "http://localhost:3000/produtos"
+    );
+
+    const produtos = await resposta.json();
+
+    const container = document.getElementById("cardapio");
+
+    container.innerHTML = "";
+
+    produtos.forEach(produto => {
+        container.innerHTML += `
+            <div class="card">
+                <img src="http://localhost:3000/uploads/${produto.imagem}">
+                <h3>${produto.nome}</h3>
+                <p>${produto.descricao}</p>
+                <p>R$ ${produto.preco}</p>
+            </div>
+        `;
+    });
+}
