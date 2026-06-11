@@ -1,96 +1,176 @@
 /* ==========================================================
-   CADASTRO.CSS
-   Página de cadastro de pratos
+   CADASTRO.CSS — Página de cadastro de pratos (Aula 10)
    ========================================================== */
 
 #secao-cadastro {
-    max-width: 700px;
-    margin: 40px auto;
-    padding: 0 20px;
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 0 20px;
 }
 
 #secao-cadastro h2 {
-    text-align: center;
-    color: var(--cor-primaria);
-    margin-bottom: 25px;
+  text-align: center;
+  color: var(--cor-primaria);
+  margin-bottom: 25px;
+  font-size: 1.4rem;
 }
 
 #formulario-prato {
-    background: #fff;
-    padding: 30px;
-    border-radius: 14px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 #formulario-prato label {
-    font-weight: bold;
-    color: var(--cor-primaria);
-    margin-top: 5px;
+  font-weight: bold;
+  color: var(--cor-primaria);
+  font-size: 0.95rem;
+  margin-bottom: 4px;
 }
 
-#formulario-prato input[type="text"] {
-    padding: 12px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-    outline: none;
-    transition: border-color 0.15s;
+#formulario-prato input[type="text"],
+#formulario-prato input[type="file"] {
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.15s ease;
+  font-family: sans-serif;
 }
 
 #formulario-prato input[type="text"]:focus {
-    border-color: var(--cor-destaque);
+  border-color: var(--cor-destaque);
+  box-shadow: 0 0 8px rgba(230, 126, 34, 0.2);
 }
 
 #formulario-prato input[type="file"] {
-    padding: 10px;
-    border: 2px dashed #ccc;
-    border-radius: 8px;
-    background: #fafafa;
-    cursor: pointer;
+  padding: 10px;
+  border: 2px dashed #ccc;
+  background: #fafafa;
+  cursor: pointer;
 }
 
 #formulario-prato input[type="file"]:hover {
-    border-color: var(--cor-destaque);
+  border-color: var(--cor-destaque);
+  background: #f0f0f0;
+}
+
+#formulario-prato input[type="file"]:focus {
+  outline: none;
+  border-color: var(--cor-destaque);
 }
 
 #btn-criar-produto {
-    margin-top: 15px;
-    padding: 14px;
-    border: none;
-    border-radius: 8px;
+  margin-top: 8px;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
 
-    background: var(--cor-destaque);
-    color: white;
+  background: var(--cor-destaque);
+  color: white;
 
-    font-size: 1rem;
-    font-weight: bold;
+  font-size: 1rem;
+  font-weight: bold;
 
-    cursor: pointer;
-    transition: background 0.15s;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
 #btn-criar-produto:hover {
-    background: #d35400;
+  background: #d35400;
+  box-shadow: 0 4px 12px rgba(211, 84, 0, 0.2);
 }
 
 #btn-criar-produto:active {
-    transform: scale(0.98);
+  transform: scale(0.98);
 }
 
-/* ── Responsividade ───────────────────────── */
+#btn-criar-produto:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* ── Mensagens de validação/feedback (injetadas via JS) ─────────────────────
+   Não estão no HTML, mas podem ser adicionadas dinamicamente.
+   ────────────────────────────────────────────────────────────────────────── */
+
+.feedback-message {
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  animation: slideDown 0.3s ease;
+}
+
+.feedback-sucesso {
+  background: #27ae60;
+  color: white;
+}
+
+.feedback-erro {
+  background: #e74c3c;
+  color: white;
+}
+
+/* ── Responsividade ─────────────────────────────────────────────────────── */
 
 @media screen and (max-width: 600px) {
+  #secao-cadastro {
+    margin: 20px auto;
+    padding: 0 16px;
+  }
 
-    #secao-cadastro {
-        margin: 20px auto;
-    }
+  #secao-cadastro h2 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
 
-    #formulario-prato {
-        padding: 20px;
-    }
+  #formulario-prato {
+    padding: 20px;
+    gap: 14px;
+  }
 
+  #formulario-prato label {
+    font-size: 0.9rem;
+  }
+
+  #formulario-prato input[type="text"],
+  #formulario-prato input[type="file"] {
+    font-size: 16px; /* Evita zoom automático no mobile */
+  }
+
+  #btn-criar-produto {
+    padding: 16px;
+    font-size: 1.05rem;
+  }
+}
+
+/* ── Animações ──────────────────────────────────────────────────────────── */
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
 }
