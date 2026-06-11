@@ -6,7 +6,7 @@
                  deletarPedido(), atualizarStatusPedido().
                  BASE_URL centralizada — trocar uma linha muda todo o projeto.
                  Padrão: ler JSON antes do response.ok → usa dados.erro do servidor.
-   [ ] Aula 10 — cadastrarProduto(dados) — POST /produtos.
+   [✔] Aula 10 — cadastrarProduto(dados) — POST /produtos.
                  Integração com cadastro.js: pratos salvos pelo admin
                  vão para o banco e aparecem no cardápio via buscarProdutos().
    [ ] Futuro  — editarProduto(id, dados) — PUT /produtos/:id.
@@ -17,7 +17,7 @@
    Carregado ANTES de main.js e pedidos.js em todos os HTMLs.
    ========================================================== */
 
-// ─────────────────────────────────────────────────────────────────────────────
+// ────────────────────────────────────────────────────────────────────────────
 // BASE_URL — endereço do servidor Node.js
 // Centralizar aqui evita repetir a URL em vários arquivos.
 // Em produção, trocar por "https://api.techfood.com" sem mexer em mais nada.
@@ -27,10 +27,10 @@
 //   ...o problema está no SERVIDOR, não aqui no front-end.
 //   Solução: adicionar app.use(cors()) no app.js do back-end (já configurado).
 //   O front-end não tem como resolver CORS — ele apenas faz a requisição.
-// ─────────────────────────────────────────────────────────────────────────────
+// ────────────────────────────────────────────────────────────────────────────
 const BASE_URL = "http://localhost:3000";
 
-// ─────────────────────────────────────────────────────────────────────────────
+// ────────────────────────────────────────────────────────────────────────────
 // buscarProdutos()
 // GET /produtos — retorna a lista de pratos do banco de dados.
 //
@@ -52,7 +52,7 @@ const BASE_URL = "http://localhost:3000";
 //
 //   Mantemos async/await por ser mais legível e fácil de depurar,
 //   mas você verá .then() em código legado — saiba reconhecer as duas.
-// ─────────────────────────────────────────────────────────────────────────────
+// ────────────────────────────────────────────────────────────────────────────
 async function buscarProdutos() {
   const response = await fetch(`${BASE_URL}/produtos`);
   const dados = await response.json();
@@ -60,7 +60,7 @@ async function buscarProdutos() {
   return dados.dados; // o servidor retorna { sucesso, dados, total } — extraímos só o array
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// ────────────────────────────────────────────────────────────────────────────
 // criarPedido(cliente, itens)
 // POST /pedidos — envia um novo pedido para o servidor.
 //
@@ -71,7 +71,7 @@ async function buscarProdutos() {
 // headers: { "Content-Type": "application/json" } avisa o servidor
 //   que o corpo da requisição é JSON — sem isso ele não consegue ler.
 // JSON.stringify converte o objeto JS em texto JSON para enviar.
-// ─────────────────────────────────────────────────────────────────────────────
+// ────────────────────────────────────────────────────────────────────────────
 async function criarPedido(cliente, itens) {
   const response = await fetch(`${BASE_URL}/pedidos`, {
     method: "POST",
@@ -83,10 +83,10 @@ async function criarPedido(cliente, itens) {
   return dados;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// ────────────────────────────────────────────────────────────────────────────
 // buscarPedidos()
 // GET /pedidos — retorna todos os pedidos do banco (para o painel da cozinha).
-// ─────────────────────────────────────────────────────────────────────────────
+// ────────────────────────────────────────────────────────────────────────────
 async function buscarPedidos() {
   const response = await fetch(`${BASE_URL}/pedidos`);
   const dados = await response.json();
@@ -94,14 +94,14 @@ async function buscarPedidos() {
   return dados;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// ────────────────────────────────────────────────────────────────────────────
 // deletarPedido(id)
 // DELETE /pedidos/:id — remove um pedido do banco de dados.
 //
 // DELETE vs PATCH:
 //   PATCH atualiza campos. DELETE remove o recurso por completo.
 //   Usado aqui para limpar pedidos do painel da cozinha.
-// ─────────────────────────────────────────────────────────────────────────────
+// ────────────────────────────────────────────────────────────────────────────
 async function deletarPedido(id) {
   const response = await fetch(`${BASE_URL}/pedidos/${id}`, {
     method: "DELETE",
@@ -111,14 +111,14 @@ async function deletarPedido(id) {
   return dados;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// ────────────────────────────────────────────────────────────────────────────
 // atualizarStatusPedido(id, novoStatus)
 // PATCH /pedidos/:id/status — avança o status de um pedido na cozinha.
 //
 // PATCH vs PUT:
 //   PUT substitui o recurso inteiro. PATCH atualiza só um campo.
 //   Aqui só o status muda — PATCH é a escolha certa.
-// ─────────────────────────────────────────────────────────────────────────────
+// ────────────────────────────────────────────────────────────────────────────
 async function atualizarStatusPedido(id, novoStatus) {
   const response = await fetch(`${BASE_URL}/pedidos/${id}/status`, {
     method: "PATCH",
@@ -128,4 +128,24 @@ async function atualizarStatusPedido(id, novoStatus) {
   const dados = await response.json();
   if (!response.ok) throw new Error(dados.erro || `Erro ${response.status}`);
   return dados;
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// cadastrarProduto(dados)
+// POST /produtos — envia um novo prato para o servidor (AULA 10).
+//
+// O formulário usa FormData para suportar envio de arquivo (imagem).
+// FormData é compatível com multipart/form-data — não precisa de header.
+// O servidor espera: nome, descricao, preco, imagem (arquivo), categoria (opcional).
+//
+// IMPORTANTE: FormData não aceita JSON.stringify() — enviamos direto.
+// ────────────────────────────────────────────────────────────────────────────
+async function cadastrarProduto(dados) {
+  const response = await fetch(`${BASE_URL}/produtos`, {
+    method: "POST",
+    body: dados, // FormData — servidor detecta multipart/form-data automaticamente
+  });
+  const resultado = await response.json();
+  if (!response.ok) throw new Error(resultado.erro || `Erro ${response.status}`);
+  return resultado;
 }
